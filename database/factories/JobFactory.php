@@ -19,7 +19,7 @@ class JobFactory extends Factory
     {
         return [
             'title' => fake()->jobTitle(),
-            'employer_id' => fn() => Employer::inRandomOrder()->first()->id,
+            'employer_id' => Employer::inRandomOrder()->first()->id,
             'salary' => '$50,000'
         ];
     }
