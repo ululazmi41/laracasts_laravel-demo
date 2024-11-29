@@ -38,10 +38,11 @@ Route::controller(JobController::class)->group(function () {
 });
 
 // Auth
-Route::get('/register', [RegisteredUserController::class, 'create']);
-Route::post('/register', [RegisteredUserController::class, 'store']);
+Route::get('/register', [RegisteredUserController::class, 'create'])->middleware('guest');
+Route::post('/register', [RegisteredUserController::class, 'store'])->middleware('guest');
 
-Route::get('/login', [SessionController::class, 'create'])->name('login');
-Route::post('/login', [SessionController::class, 'store']);
+Route::get('/login', [SessionController::class, 'create'])->middleware('guest')->name('login');
+Route::post('/login', [SessionController::class, 'store'])->middleware('guest');
 
-Route::post('/logout', [SessionController::class, 'destroy']);
+Route::get('/logout', fn () => abort(404));
+Route::post('/logout', [SessionController::class, 'destroy'])->middleware('auth');
